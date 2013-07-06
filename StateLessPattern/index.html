@@ -26,8 +26,6 @@ $(function() {
 
     //リストをクリックしたとき
     $("#list li").mousedown(function() {
-        console.log("マウスダウン");
-        console.log(this);
         if (!selected) {
             selected = this;
             // プレビュー用のspanを表示する。display: noneを解する。非表示状態にあるものを表示する。
@@ -38,14 +36,29 @@ $(function() {
     //リストをマウスムーブしたらする処理。
     $("#list").mousemove(function(event){
         var target = event.target;
+        //タグの要素がLIで、selectedがあったらする処理。
         if(target.tagName == 'LI' && selected){
-            console.log("一致したー");
+            //プレビュー用のspanを移動
+            $("#drag-item").css({left: event.pageX + 2,top: event.pageY + 2});
+            //マウス直下の項目を変更する。
+            $("#list li").removeClass("drag-over");
+            $(selected).addClass("drag-over");
 
         }
-
-
     });
 
+    //リストをマウスアップする。
+    $("#list").mouseup(function(enent){
+        //マウスアップしたところを取得する。
+        var target = event.target;
+        if(target.tagName == 'LI' && selected){
+            //項目の移動
+            $(target).after(selected);
+            //見た目を最初に状態に戻す。
+            $("#list li").removeClass("drag-over");
+            $("#drag-item").hide();
+        }
+    });
 
 
 
