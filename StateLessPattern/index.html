@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+#list li {
+    cursor: pointer;
+    font-size: 20px;
+}
+#drag-item {
+    display: none;
+    background:yellow;
+    alpha: 0.5;
+    z-index: 99;
+    position: absolute;
+    font-size: 20px;
+}
+.drag-over {
+    border-bottom: 2px dashed #777;
+    background: #FED;
+}
+</style>
+<script src="jquery-1.3.2.js"></script>
+<script>
+$(function() {
+    var selected = null;
+
+    //リストをクリックしたとき
+    $("#list li").mousedown(function() {
+        console.log("マウスダウン");
+        console.log(this);
+        if (!selected) {
+            selected = this;
+            // プレビュー用のspanを表示する。display: noneを解する。非表示状態にあるものを表示する。
+            $("#drag-item").text($(selected).text()).show();
+        }
+    });
+
+    //リストをマウスムーブしたらする処理。
+    $("#list").mousemove(function(event){
+        var target = event.target;
+        if(target.tagName == 'LI' && selected){
+            console.log("一致したー");
+
+        }
+
+
+    });
+
+
+
+
+
+
+});
+</script>
+</head>
+<body onselectstart="return false;"
+      onmousedown="if (typeof event.preventDefault != 'undefined') { event.preventDefault(); }">
+<ul id="list">
+    <li>Item-1</li>
+    <li>Item-2</li>
+    <li>Item-3</li>
+    <li>Item-4</li>
+    <li>Item-5</li>
+</ul>
+<span id="drag-item">test</span>
+Debug : <span id="debug"></span>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
