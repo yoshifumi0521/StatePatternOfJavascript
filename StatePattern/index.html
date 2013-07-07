@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+#list li {
+    cursor: pointer;
+    font-size: 20px;
+}
+#drag-item {
+    display: none;
+    background:yellow;
+    alpha: 0.5;
+    z-index: 99;
+    position: absolute;
+    font-size: 20px;
+}
+.drag-over {
+    border-bottom: 2px dashed #777;
+    background: #FED;
+}
+</style>
+<script src="jquery-1.3.2.js"></script>
+<script>
+$(function() {
+
+
+
+
+
+
+
+
+
+
+
+
+});
+</script>
+</head>
+<body onselectstart="return false;"
+      onmousedown="if (typeof event.preventDefault != 'undefined') { event.preventDefault(); }">
+<ul id="list">
+    <li>Item-1</li>
+    <li>Item-2</li>
+    <li>Item-3</li>
+    <li>Item-4</li>
+    <li>Item-5</li>
+</ul>
+<span id="drag-item">test</span>
+Debug : <span id="debug"></span>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
