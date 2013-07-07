@@ -22,7 +22,27 @@
 <script src="jquery-1.3.2.js"></script>
 <script>
 $(function() {
+    //状態を記録するための変数
+    var status = null;
+    var selected = null;
 
+    //イベント処理を状態オブジェクトに委譲する。
+    //マウスダウンする。
+    $("#list li").mousedown(function(){
+
+
+    });
+
+    //マウスムーブ。list liにしてないのは、liとliの間が存在して、イベントが発生しないから。
+    $('#list').mousemove(function(){
+
+
+    });
+
+    //マウスアップ
+    $('#list').mouseup(function(){
+
+    });
 
 
 
