@@ -22,32 +22,63 @@
 <script src="jquery-1.3.2.js"></script>
 <script>
 $(function() {
-    //状態を記録するための変数
-    var status = null;
+    // //状態を記録するための変数
+    var state = null;
     var selected = null;
 
     //イベント処理を状態オブジェクトに委譲する。
     //マウスダウンする。
-    $("#list li").mousedown(function(){
-
-
+    $("#list li").mousedown(function(event){
+        state.onMouseDown(event);
     });
 
-    //マウスムーブ。list liにしてないのは、liとliの間が存在して、イベントが発生しないから。
+    // //マウスムーブ。list liにしてないのは、liとliの間が存在して、イベントが発生しないから。
     $('#list').mousemove(function(){
 
 
     });
 
-    //マウスアップ
+    // //マウスアップ
     $('#list').mouseup(function(){
 
     });
 
 
+    // //状態statusの変更
+    var transtState = function(nextState){
+        $('#debug').text(status + " -> " + nextState);
+        state = nextState;
+    }
 
+    // //スーパークラスを作成する。
+    var AbstractState = function(){};
+    //プロトタイプを作成
+    AbstractState.prototype = {
+        initialize: function(){},
+        onMouseDown: function(event){},
+        onMouseMove: function(event){},
+        onMouseUp: function(event){},
+        toString: function(){
+            return 'AbstractState';
+        }
+    };
 
+    // //状態を2つ用意する。Normal。
+    var NormalState = function(){
+        //選択されていないので、selectedをnullにする。
+        selected = null;
+    }
+    $.extend(NormalState.prototype,AbstractState.prototype,{
+        onMouseDown: function(event){
+            var target = event.target;
+            if (target.tagName == 'LI'){
+                alert("次の状態に遷移する。");
+            }
+        }
+    });
 
+    //初期状態はNormalStateにする。
+    transtState(new NormalState());
 
 
 
