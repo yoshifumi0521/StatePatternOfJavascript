@@ -34,19 +34,18 @@ $(function() {
 
     // //マウスムーブ。list liにしてないのは、liとliの間が存在して、イベントが発生しないから。
     $('#list').mousemove(function(){
-
-
+        state.onMouseMove(event);
     });
 
     // //マウスアップ
     $('#list').mouseup(function(){
-
+        state.onMouseUp(event);
     });
 
 
     // //状態statusの変更
     var transtState = function(nextState){
-        $('#debug').text(status + " -> " + nextState);
+        $('#debug').text(state + " -> " + nextState);
         state = nextState;
     }
 
@@ -63,7 +62,8 @@ $(function() {
         }
     };
 
-    // //状態を2つ用意する。Normal。
+    // //状態を2つ用意する。
+    //通常状態Normalの定義
     var NormalState = function(){
         //選択されていないので、selectedをnullにする。
         selected = null;
@@ -72,10 +72,39 @@ $(function() {
         onMouseDown: function(event){
             var target = event.target;
             if (target.tagName == 'LI'){
-                alert("次の状態に遷移する。");
+                transtState(new DragMoving(event));
             }
+        },
+        toString: function(){
+            return 'NormalState';
         }
     });
+
+
+    //移動中状態DragMovingの定義
+    var DragMoving = function(target){
+        var selected = target;
+
+    }
+    $.extend(DragMoving.prototype,AbstractState.prototype,{
+        onMouseMove: function(event){
+            var target = event.target;
+            if (target.tagName == 'LI'){
+                transtState(new DragMoving(event));
+            }
+        },
+        onMouseUp: function(event){
+            var target = event.target;
+            if (target.tagName == 'LI'){
+                transtState(new NormalState());
+            }
+        },
+        toString: function(){
+            return 'DragMoving';
+        }
+    });
+
+
 
     //初期状態はNormalStateにする。
     transtState(new NormalState());
